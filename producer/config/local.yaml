@@ -1,5 +1,5 @@
 kafka:
-  bootstrap_servers: "localhost:9092"
+  bootstrap_servers: "host.docker.internal:9092"
   topic: "orders_raw"
 
 producer:
