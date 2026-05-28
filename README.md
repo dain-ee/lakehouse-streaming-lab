@@ -126,6 +126,26 @@ Kafka 원본 이벤트를 저장하는 Append-Only 테이블
 
 ---
 
+## Producer Application
+
+`producer/src/order_event_producer.py`는 주문 라이프사이클 이벤트를 Kafka `orders_raw` 토픽으로 발행하는 테스트용 Producer Application입니다.
+
+생성 이벤트:
+
+- ORDER_CREATED
+- PAYMENT_COMPLETED
+- SHIPMENT_STARTED
+- SHIPMENT_DELIVERED
+
+실행 방법:
+
+```bash
+pip3 install -r producer/requirements.txt
+python3 producer/src/order_event_producer.py
+```
+
+---
+
 # 모니터링
 
 현재 아래 구성으로 모니터링 중입니다.
