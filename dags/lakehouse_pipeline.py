@@ -9,7 +9,7 @@ with DAG(
     start_date=datetime(2026, 5, 1),
     schedule="@daily",
     catchup=False,
-    tags=["lakehouse", "spark", "iceberg"],
+    tags=["lakehouse", "kafka", "spark", "iceberg"],
 ) as dag:
 
     check_kafka_topics = BashOperator(
@@ -21,23 +21,19 @@ with DAG(
         """,
     )
 
-    count_orders_bronze = BashOperator(
-        task_id="count_orders_bronze",
+    start_bronze_current_streaming = BashOperator(
+        task_id="start_bronze_current_streaming",
         bash_command="""
-        spark-sql -e "
-        SELECT count(*)
-        FROM glue_catalog.lakehouse_lab.orders_bronze;
-        "
+        cd /home/ec2-user/lab/iceberg-lab/scripts
+        ./run-orders-bronze-current.sh
         """,
     )
 
-    count_orders_current = BashOperator(
-        task_id="count_orders_current",
+    start_metrics_streaming = BashOperator(
+        task_id="start_metrics_streaming",
         bash_command="""
-        spark-sql -e "
-        SELECT count(*)
-        FROM glue_catalog.lakehouse_lab.orders_current;
-        "
+        cd /home/ec2-user/lab/iceberg-lab/scripts
+        ./run-orders-metrics-5m.sh
         """,
     )
 
@@ -62,7 +58,7 @@ with DAG(
 
     (
         check_kafka_topics
-        >> count_orders_bronze
-        >> count_orders_current
+        >> start_bronze_current_streaming
+        >> start_metrics_streaming
         >> validate_current_not_empty
     )
