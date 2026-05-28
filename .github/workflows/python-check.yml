@@ -33,3 +33,7 @@ jobs:
       - name: Validate imports
         run: |
           python -c "import confluent_kafka; import yaml"
+
+      - name: Build producer Docker image
+        run: |
+          docker build -t lakehouse-order-producer:ci producer/
