@@ -10,3 +10,15 @@ derby.log
 metastore_db/
 __pycache__/
 *.pyc
+
+# Spark/Hive local runtime files
+metastore_db/
+**/metastore_db/
+derby.log
+**/derby.log
+db.lck
+dbex.lck
+
+# Python cache
+__pycache__/
+*.pyc
