@@ -4,3 +4,9 @@ sql/metastore_db/
 *.pid
 __pycache__/
 spark-warehouse/
+
+# Runtime generated files
+derby.log
+metastore_db/
+__pycache__/
+*.pyc
