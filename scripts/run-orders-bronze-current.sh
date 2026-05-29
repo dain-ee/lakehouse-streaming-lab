@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#!/bin/bash
+
+echo "[DEBUG] script cwd before cd: $(pwd)"
+cd /home/ec2-user/lab/iceberg-lab || exit 1
+echo "[DEBUG] script cwd after cd: $(pwd)"
+
 SPARK_HOME="$HOME/apps/spark"
 JOB_DIR="$HOME/lab/iceberg-lab/jobs"
 LOG_DIR="$HOME/platform/logs/spark"
